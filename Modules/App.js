@@ -583,9 +583,11 @@ class AvatarGeneratorApp {
 
     async setAdvertisement() {
         const advertisement = await request('/Resources/Advertisement/Config.json', false);
+        const link = document.querySelector('section.donate-section a');
+        const image = document.querySelector('section.donate-section .advertisement-image');
+        image.classList.remove('hidden');
         if (!advertisement) return console.warn('加载广告配置失败！');
         if (advertisement.expire && new Date(advertisement.expire) <= Date.now()) return console.log('监测到广告过期，已禁用。');
-        const link = document.querySelector('section.donate-section a');
         if (advertisement.links.union) link.href = advertisement.links.union;
         else link.href = (window.innerWidth <= 950) ? advertisement?.links?.small : advertisement?.links?.big;
         if (advertisement?.images?.big)
