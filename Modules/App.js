@@ -582,11 +582,16 @@ class AvatarGeneratorApp {
     }
 
     async setAdvertisement() {
-        const advertisement = await request('/Resources/Advertisement/Links.json', false);
-        if (!advertisement) return console.warn('加载广告链接失败！');
+        const advertisement = await request('/Resources/Advertisement/Config.json', false);
+        if (!advertisement) return console.warn('加载广告配置失败！');
+        if (advertisement.expire && new Date(advertisement.expire) <= Date.now()) return console.log('监测到广告过期，已禁用。');
         const link = document.querySelector('section.donate-section a');
-        if (advertisement.union) link.herf = advertisement.union;
-        else link.href = (window.innerWidth <= 950) ? advertisement?.small : advertisement?.big;
+        if (advertisement.links.union) link.href = advertisement.links.union;
+        else link.href = (window.innerWidth <= 950) ? advertisement?.links?.small : advertisement?.links?.big;
+        if (advertisement?.images?.big)
+            document.documentElement.style.setProperty('--advertisement-images-big', `url(${advertisement.images.big})`);
+        if (advertisement?.images?.small)
+            document.documentElement.style.setProperty('--advertisement-images-small', `url(${advertisement.images.small})`);
     }
 }
 

@@ -17,6 +17,9 @@
   --transition-normal: 0.5s;
   --transition-fast: 0.3s;
   --grid-3-col: repeat(3, 1fr);
+
+  --advertisement-images-big: url('Resources/Advertisement/Big.jpg');
+  --advertisement-images-small: url('Resources/Advertisement/Small.jpg');
 }
 
 @font-face {
@@ -61,7 +64,7 @@
 
   .advertisement-image {
     height: 90px !important;
-    background-image: url('Resources/Advertisement/Small.jpg') !important;
+    background-image: var(--advertisement-images-small) !important;
   }
 
   .introduction {
@@ -471,7 +474,7 @@ p {
 .advertisement-image {
   width: 100%;
   height: 140px;
-  background-image: url('Resources/Advertisement/Big.jpg');
+  background-image: var(--advertisement-images-big);
   background-size: cover;
   background-position: center;
   transition: transform var(--transition-normal);
